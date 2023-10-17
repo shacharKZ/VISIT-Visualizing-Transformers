@@ -6,7 +6,8 @@ Try our demo: [![Colab VISIT Demo](https://colab.research.google.com/assets/cola
 
 By using this notebook you can create dynamic plots that reflect the forward passes of GPTs from a semantic perspective. These plots illustrate the information flow within the models and provide insights into the impact of each component on the semantic information flow.
 
-![Picture230904]()
+![Picture230904](https://github.com/shacharKZ/VISIT-Visualizing-Transformers/assets/57663126/2af753ec-c252-4d3d-8021-3bc37d36e8be)
+
 
 Our implementation currently works with multi-head attention decoders like OpenAI's GPT-2 and EleutherAI's GPT-j (both from HuggingFace).
 
