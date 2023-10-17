@@ -1,0 +1,23 @@
+{
+    "config_name": "llama2_7B",
+
+    "layer_format": "model.layers.{}",
+    "layer_mlp_format": "model.layers.{}.mlp",
+    "layer_attn_format": "model.layers.{}.self_attn",
+
+    "ln1": "model.layers.{}.input_layernorm",
+    "attn_q": "model.layers.{}.self_attn.q_proj",
+    "attn_k": "model.layers.{}.self_attn.k_proj",
+    "attn_v": "model.layers.{}.self_attn.v_proj",
+    "attn_o": "model.layers.{}.self_attn.o_proj",
+    
+    "ln2": "model.layers.{}.post_attention_layernorm",
+    "mlp_ff1": "model.layers.{}.mlp.up_proj",
+    "mlp_ff2": "model.layers.{}.mlp.down_proj",
+
+    "include_mlp_bias": false,
+    "include_attn_bias": false,
+    
+    "transpose_attn_o": true,
+    "n_values_per_head": 1
+}

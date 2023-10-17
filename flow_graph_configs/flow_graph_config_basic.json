@@ -1,0 +1,20 @@
+{
+    "config_name": "gpt2",
+
+    "layer_format": "transformer.h.{}",
+    "layer_mlp_format": "transformer.h.{}.mlp",
+    "layer_attn_format": "transformer.h.{}.attn",
+
+    "ln1": "transformer.h.{}.ln_1",
+    "attn_q": "transformer.h.{}.attn.c_attn",
+    "attn_k": "transformer.h.{}.attn.c_attn",
+    "attn_v": "transformer.h.{}.attn.c_attn",
+    "attn_o": "transformer.h.{}.attn.c_proj",
+
+    "ln2": "transformer.h.{}.ln_2",
+    "mlp_ff1": "transformer.h.{}.mlp.c_fc",
+    "mlp_ff2": "transformer.h.{}.mlp.c_proj",
+
+    "include_mlp_bias": true,
+    "include_attn_bias": true
+}
