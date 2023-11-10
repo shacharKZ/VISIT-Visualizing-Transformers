@@ -2,7 +2,9 @@
 
 This repository contains the code for the paper [VISIT: Visualizing and Interpreting the Semantic Information Flow of Transformers]().
 
-Try our demo: [![Colab VISIT Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1c2Erx-JC3cRLtYKqGJBUZ4QeiKutCZ_T?usp=sharing)
+Try our demo: [![Colab VISIT Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1_iOJvbri_7jzmqTVBb_T6zl_08_hl3hY?usp=sharing)
+
+<!-- And another version without the markdowns: [![Colab VISIT Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1c2Erx-JC3cRLtYKqGJBUZ4QeiKutCZ_T?usp=sharing) -->
 
 By using this notebook you can create dynamic plots that reflect the forward passes of GPTs from a semantic perspective. These plots illustrate the information flow within the models and provide insights into the impact of each component on the semantic information flow.
 
@@ -18,7 +20,7 @@ Tested with Python 3.9.7 . After cloning our code, run the following command in 
 ```pip install -r requirements.txt ```
 
 # Generate Flow Graphs:
-To generate the flow graphs you can use the interactive notebooks we provided (including our demo on Colab [![Colab VISIT Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1c2Erx-JC3cRLtYKqGJBUZ4QeiKutCZ_T?usp=sharing)) or to convert them into ``.py`` files using ```jupyter nbconvert <The relevent notebook>.ipynb --to python``` and run them from the command line.
+To generate the flow graphs you can use the interactive notebooks we provided (including our demo on Colab [![Colab VISIT Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1c2Erx-JC3cRLtYKqGJBUZ4QeiKutCZ_T?usp=sharing), this version is without the all the markdowns like the top link) or to convert them into ``.py`` files using ```jupyter nbconvert <The relevent notebook>.ipynb --to python``` and run them from the command line.
 
 To run the code from the command line, use the following template:
 ```
