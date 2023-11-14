@@ -20,7 +20,7 @@ Tested with Python 3.9.7 . After cloning our code, run the following command in 
 ```pip install -r requirements.txt ```
 
 # Generate Flow Graphs:
-To generate the flow graphs you can use the interactive notebooks we provided (including our demo on Colab [![Colab VISIT Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1c2Erx-JC3cRLtYKqGJBUZ4QeiKutCZ_T?usp=sharing), this version is without the all the markdowns like the top link) or to convert them into ``.py`` files using ```jupyter nbconvert <The relevent notebook>.ipynb --to python``` and run them from the command line.
+To generate the flow graphs you can use the interactive notebooks we provided (including our demo on Colab [![Colab VISIT Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1c2Erx-JC3cRLtYKqGJBUZ4QeiKutCZ_T?usp=sharing), this version is with explicit code unlike the version at the top of the page with form-like UI) or to convert them into ``.py`` files using ```jupyter nbconvert <The relevent notebook>.ipynb --to python``` and run them from the command line.
 
 To run the code from the command line, use the following template:
 ```
