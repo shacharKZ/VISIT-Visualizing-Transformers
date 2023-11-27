@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Katz"
+    given-names: "Shahar"
+  - family-names: "Belinkov"
+    given-names: "Yonatan"
+  journal: "arXiv preprint arXiv:2305.13417"
+  title: "VISIT: Visualizing and Interpreting the Semantic Information Flow of Transformers"
+  year: 2023
