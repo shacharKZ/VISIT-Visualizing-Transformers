@@ -77,7 +77,7 @@ python generate_flow_graphs.py --model_name "meta-llama/Llama-2-7b-chat-hf" \
 ```
 
 # More models:
-Our tool should be able to handle any GPT-like model (autoregressive decoder with multi-head self-attention). Please check out [flow_graph_configs](https://github.com/shacharKZ/VISIT-Transformers-as-flow-graph/tree/main/flow_graph_configs) folder for examples of how to configure the tool for other models. If you have any questions, please contact us.
+Our tool should be able to handle any GPT-like model (autoregressive decoder with multi-head self-attention). Please check out [flow_graph_configs](https://github.com/shacharKZ/VISIT-Visualizing-Transformers/tree/main/flow_graph_configs) folder for examples of how to configure the tool for other models. If you have any questions, please contact us.
 
 
 ## How to Cite
