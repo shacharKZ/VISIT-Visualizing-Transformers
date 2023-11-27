@@ -1,6 +1,6 @@
 # VISIT: Visualizing and Interpreting the Semantic Information Flow of Transformers
 
-This repository contains the code for the paper [VISIT: Visualizing and Interpreting the Semantic Information Flow of Transformers]().
+This repository contains the code for the paper [VISIT: Visualizing and Interpreting the Semantic Information Flow of Transformers](https://arxiv.org/abs/2305.13417).
 
 Try our demo: [![Colab VISIT Demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1_iOJvbri_7jzmqTVBb_T6zl_08_hl3hY?usp=sharing)
 
