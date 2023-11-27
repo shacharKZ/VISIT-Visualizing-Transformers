@@ -80,3 +80,14 @@ python generate_flow_graphs.py --model_name "meta-llama/Llama-2-7b-chat-hf" \
 Our tool should be able to handle any GPT-like model (autoregressive decoder with multi-head self-attention). Please check out [flow_graph_configs](https://github.com/shacharKZ/VISIT-Transformers-as-flow-graph/tree/main/flow_graph_configs) folder for examples of how to configure the tool for other models. If you have any questions, please contact us.
 
 
+## How to Cite
+
+```bibtex
+@article{katz2023visit,
+      title={VISIT: Visualizing and Interpreting the Semantic Information Flow of Transformers}, 
+      author={Shahar Katz and Yonatan Belinkov},
+      year={2023},
+      eprint={2305.13417},
+      archivePrefix={arXiv},
+}
+```
