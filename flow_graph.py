@@ -64,14 +64,13 @@ class FlowGraph:
         else:
             self.n_head = self.model.config.num_attention_heads  # llama2-7B
     
-    
     def infrence_model_and_collect_data_for_graph(self, line, layer_to_collect=None, max_hidden_states_to_collect=100):
         '''
         Uses a wrapped infrence of the model to collect the data for the graph
         @ line: the line to infrence
         @ layer_to_collect: the layer to collect the data for the graph. if None, will use the layer in self.config_path (assuming it in the format of GraphConfigs)
 
-        returns the model output ("answer", as str) and the hs_collector dictionary (which contains the data for the graph)      
+        returns the model answer (as str) and the hs_collector dictionary (which contains the data for the graph)      
         '''
         layer_to_collect = self.config_path if layer_to_collect is None else layer_to_collect
         # connect hooks that collect all the layers and hidden states data
@@ -195,7 +194,7 @@ class FlowGraph:
         fig.update_layout(
             hovermode = 'x',
             title_text = title,
-            font=dict(size = 10, color = 'white'),
+            font=dict(size=self.config.font_size, color='white'),
             plot_bgcolor=self.config.backgroud_color,
             paper_bgcolor=self.config.backgroud_color
         )
@@ -299,11 +298,13 @@ class FlowGraph:
 
     def layer_attn_to_graph(self, layer_idx, graph_data, hs_collector, row_idx=-1, target_word=None, line=None):
         '''
-        creates a flow-graph for the #layer_idx attention (attn) layer of self.model
+        create a graph for the attention (attn) layer
         the subgraph is a graph of the neurons in the Q, K, V O matricies, mostly aggregated into heads
         the nodes are single or small groups of neurons (when they are aggregated into heads or subheads)
         the links are the connections between the neurons (summation of the neurons or when one neuron creates the coefficient of another neuron)
-        the graph is created using the graph_data dictionary (and by updating it)
+        the graph is created using the graph_data dictionary
+        if the graph_data dictionary's lists are empty, they will be initialized
+        if the graph_data dictionary 's lists are not empty, they will be updated (try to connect the new nodes to the existing nodes)
 
         @ layer_idx: the index of the layer in the model
         @ graph_data: the graph data dictionary (if called first time, should include empty list for the keys it uses)
@@ -406,11 +407,24 @@ class FlowGraph:
 
         dim_head = self.n_embd // self.n_head
 
+        heads_to_add = [head_idx for head_idx in range(self.n_head)]
+        if hasattr(self.config, 'n_heads_to_add') and self.config.n_heads_to_add > 0:
+            heads_to_add = concated_heads_wihtout_projection.split(dim_head, dim=0)
+            heads_to_add_by_norm = [(head_idx, head.norm().item()) for head_idx, head in enumerate(heads_to_add)]
+            # print(f'heads_to_add before filtering BP1: {heads_to_add_by_norm}')
+            heads_to_add_by_norm = sorted(heads_to_add_by_norm, key=lambda x: x[1], reverse=True)
+            # print(f'heads_to_add after filtering BP2: {heads_to_add_by_norm}')
+            heads_to_add = [head_idx for head_idx, _ in heads_to_add_by_norm[:self.config.n_heads_to_add]]
+        # print(f'n_heads_to_add: {heads_to_add}, heads_to_add: {heads_to_add}')
+
+
         # create for each head the following nodes:
         # (1) the qi - this head part in the query q (we also add its information about ki, vi that were generated at this layer and saved to the attention memory)
         # (2) its #self.config.n_values_per_head top biggest ki and vi (the keys and values from the attention memory) accodring to the attention score
         # (3) the head output - the weighted summation of all the vi into it 
         for head_idx in range(self.n_head):
+            if head_idx not in heads_to_add:
+                continue
             # hs_collector['past_key_values'][layer_idx][0 for key, 1 for value][entry in batch][head_idx] -> list of the keys/values for this head. the i-th entry is the key/value for the i-th token in the input
             keys = hs_collector['past_key_values'][layer_idx][0][0][head_idx]  
             values = hs_collector['past_key_values'][layer_idx][1][0][head_idx]
@@ -582,11 +596,13 @@ class FlowGraph:
 
     def layer_mlp_to_graph(self, layer_idx: int, graph_data, hs_collector, row_idx=-1, target_word=None):
         '''
-        creates a subgraph of the #layer_idx feed-forward (FF, MLP) part of self.model
+        create a subgraph of the feed-forward (FF, MLP) part of the model at layer_idx
         the subgraph is a graph of the neurons in the FF part of the model
         the nodes are the most active neurons in the FF (some of positive and some of negative)
         the links are the connections between the neurons (summation of the neurons or when one neuron creates the coefficient of another neuron)
-        the graph is created using the graph_data dictionary (and by updating it)
+        the graph is created using the graph_data dictionary
+        if the graph_data dictionary's lists are empty, they will be initialized
+        if the graph_data dictionary's lists are not empty, they will be updated (try to connect the new nodes to the existing nodes)
 
         @ layer_idx: the index of the layer in the model
         @ graph_data: the graph data dictionary (if called first time, should include empty list for the keys it uses)

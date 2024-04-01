@@ -26,13 +26,14 @@ class GraphConfigs:
     include_attn_bias: bool = True
 
     transpose_attn_o: bool = False  # if to transpose the attn_o matrix, for example: in gpt-neo and llama2
-
-    config_name: str = "default_v1"
+    
+    n_layer: str = "n_layer"
+    config_name: str = "default_v2"
 
     round_digits: int = 3 
     # the numbers of top and bottom neurons to show at the mlp matricies (FF1, FF2) and the attention projection matrix (W_O / attn.c_proj)
-    number_of_top_neurons: int = 20
-    number_of_bottom_neurons: int = 10
+    number_of_top_neurons: int = 18
+    number_of_bottom_neurons: int = 7
     defualt_weight: int = 7
     factor_weight_mlp_key_value_link: float = 1.5
     # number of ki, vi to show for each head. great to examine with gpt2-small/medium but for gpt2-large/xl you might want to reduce this number
@@ -42,9 +43,11 @@ class GraphConfigs:
     factor_head_norm: float = 0.2
     factor_for_memory_to_head_values: float = 1.3
 
+    n_heads_to_add: int = 10 # how many attention heads to add to the graph. -1 means all heads
+
     # if to merge those types of nodes into one node to save space, since they are having only input and output ranks of 1 and used as direct mapping between each other
     compact_mlp_nodes: bool = False
-    compact_attn_k_v_nodes: bool = False
+    compact_attn_k_v_nodes: bool = False  # currently not used. left from previous version
     parallel_attn_mlp_architecture: bool = False
 
     cmap_node_rank_target: list = field(default_factory=lambda: ['lime', 'greenyellow', 'yellow' , 'yellow', 'yellow'] + ['dimgrey']*53 + ['orangered']*3 + ['red']*4 + ['darkred']*5)
@@ -61,11 +64,30 @@ class GraphConfigs:
     color_attn_residual: str = 'rgba(102,0,204,0.3)'  # unique color for attn residual
     color_mlp_residual: str = 'rgba(51,102,153,0.3)'  # unique color for mlp residual
 
+    font_size: int = 12
 
     @classmethod
-    def from_json(cls, fpath, shell_port=None):
-        with open(fpath, "r") as f:
-            data = json.load(f)
-            print(data)
+    def from_json(cls, fpath, shell_port=None, relative_path=''):
+        try:
+            with open(fpath, "r") as f:
+                data = json.load(f)
+                print(data)
+        except:
+            print(f'Try to automatically assuming which config to load from {fpath}...')
+            if 'gpt2' in fpath:
+                fpath = f'{relative_path}flow_graph_configs/flow_graph_config_gpt2.json'
+            elif 'gpt-j' in fpath or 'gptj' in fpath:
+                fpath = f'{relative_path}flow_graph_configs/flow_graph_config_gptj.json'
+            elif 'gpt-neo' in fpath or 'gpt_neo' in fpath:
+                fpath = f'{relative_path}flow_graph_configs/flow_graph_config_gpt_neo.json'
+            elif 'llama' in fpath:
+                fpath = f'{relative_path}flow_graph_configs/flow_graph_config_llama2_7B.json'
+            else:
+                raise ValueError(f'Could not automatically determine which config to load from {fpath}')
+
+            print(f'Loading config from {fpath}')
+            with open(fpath, "r") as f:
+                data = json.load(f)
+                print(data)
 
         return cls(**data)
