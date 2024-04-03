@@ -24,7 +24,7 @@ To generate the flow graphs you can use the interactive notebooks we provided (i
 
 To run the code from the command line, use the following template:
 ```
-python generate_flow_graphs.py --model_name <The model name or path> \
+python generate_flow_graph.py --model_name <The model name or path> \
     --line <The input line> \
     --graph_config_path <The path to the graph config file> \
     --layers_to_check <The layers to check>
@@ -32,7 +32,7 @@ python generate_flow_graphs.py --model_name <The model name or path> \
 
 For example:
 ```
-python generate_flow_graphs.py --model_name "gpt2-medium" \
+python generate_flow_graph.py --model_name "gpt2-medium" \
     --line "The capital of Japan is the city of" 
     --graph_config_path "flow_graph_configs/flow_graph_config_basic.json" \
     --layers_to_check "[10,14]"
@@ -40,7 +40,7 @@ python generate_flow_graphs.py --model_name "gpt2-medium" \
 or (uses a color blind friendliness configuration):
 
 ```
-python generate_flow_graphs.py --model_name "gpt2-xl" \
+python generate_flow_graph.py --model_name "gpt2-xl" \
     --line "Lionel Messi plays for" \
     --graph_config_path "flow_graph_configs/flow_graph_config_basic_color_palette2.json" \
     --layers_to_check "[15,16]"
@@ -50,7 +50,7 @@ python generate_flow_graphs.py --model_name "gpt2-xl" \
 To generate GPT-j model: (use ```--model_revision "float16"```)
 
 ```
-python generate_flow_graphs.py --model_name "EleutherAI/gpt-j-6B" \
+python generate_flow_graph.py --model_name "EleutherAI/gpt-j-6B" \
     --model_revision "float16" \
     --line "The capital of Japan is the city of" \
     --graph_config_path "flow_graph_configs/flow_graph_config_gptj.json" \
@@ -63,14 +63,14 @@ Note the graph can be plotted via the IDE or available browser, as well as saved
 Please make sure to use the correct graph config file for each model and to get the right access to the model if you are using the llama2 model from HuggingFace.
 
 ```
-python generate_flow_graphs.py --model_name "EleutherAI/gpt-neo-1.3B" \
+python generate_flow_graph.py --model_name "EleutherAI/gpt-neo-1.3B" \
     --line "The capital of Japan is the city of" \
     --graph_config_path "flow_graph_configs/flow_graph_config_gpt_neo.json" \
     --layers_to_check "[10,14,18]"
 ```
 
 ```
-python generate_flow_graphs.py --model_name "meta-llama/Llama-2-7b-chat-hf" \
+python generate_flow_graph.py --model_name "meta-llama/Llama-2-7b-chat-hf" \
     --line "The capital of Japan is the city of" \
     --graph_config_path "flow_graph_configs/flow_graph_config_llama2_7B.json" \
     --layers_to_check "[10,14,18]"
